@@ -283,9 +283,12 @@
   }
 
   /* ---------------- panel ---------------- */
+  // صح ولا غلط: السعيدة والمفتوحة صح، والي فيها درس والحزينة غلط. أي نهاية بتقدر تغيّرها بـ verdict: "right" | "wrong".
+  const isRight = (n) => (n.verdict ? n.verdict === "right" : n.ending === "happy" || n.ending === "neutral");
+  const verdictTag = (n) => (isRight(n) ? "✅ صح" : "❌ غلط");
   function endingBadge(n) {
     const k = ENDINGS[n.ending] ? n.ending : "neutral";
-    return `<span class="badge c-${k}">${ENDINGS[k].icon} ${ENDINGS[k].label}</span>`;
+    return `<span class="badge c-${k}">${ENDINGS[k].icon} ${ENDINGS[k].label}</span> <span class="badge v-${isRight(n) ? "right" : "wrong"}">${verdictTag(n)}</span>`;
   }
 
   function pathStepsHTML(nodes) {
@@ -327,7 +330,7 @@
         ${L.endings.map((id) => {
           const n = story.nodes[id], k = kindOf(story, id);
           return `<button class="ending-item c-${k}${state.focusEnding === id ? " active" : ""}" data-ending="${esc(id)}">
-            <b>${ENDINGS[k].icon} نهاية ${n._endNo}: ${esc(n.title)}</b>
+            <b>${verdictTag(n)} · نهاية ${n._endNo}: ${esc(n.title)}</b>
             <small>${pathTo(id).length - 1} خطوات · ${esc(n.lesson || ENDINGS[k].label)}</small>
           </button>`;
         }).join("")}
@@ -483,7 +486,13 @@
         <div class="r-chosen">✓ ${esc(chosen ? chosen.label : "")}</div>
         ${others.map((c) => `<button class="r-retry" data-retry="${i}|${esc(c.to)}">🔁 لو اخترت: ${esc(c.label)}</button>`).join("")}</li>`);
     });
+    const ok = isRight(n);
     return `
+      <div class="r-verdict ${ok ? "right" : "wrong"}">
+        <div class="r-verdict-mark">${ok ? "✅" : "❌"}</div>
+        <div class="r-verdict-word">${ok ? "صح!" : "غلط!"}</div>
+        <div class="r-verdict-sub">${ok ? "اختياراتك وصّلتك لنهاية حلوة 🎉" : "في طريق أحسن. غيّر اختيار من «لو اخترت…» تحت وجرّب مرة ثانية 👇"}</div>
+      </div>
       <div class="r-ending c-${k}">
         <div class="r-ending-icon">${E.icon}</div>
         <div><small>${E.label}</small><b>${esc(n.title)}</b></div>
