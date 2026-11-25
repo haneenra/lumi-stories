@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>شجرة القصص</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">🌳 شجرة القصص</div>
+    <label class="picker">
+      <span>القصة:</span>
+      <select id="storySelect"></select>
+    </label>
+    <div class="modes" role="tablist">
+      <button id="modeHall" class="mode" type="button">🚪 بهو الأبواب</button>
+      <button id="modeMap" class="mode active" type="button">🗺️ الخريطة</button>
+      <button id="modePlay" class="mode" type="button">📖 عيش القصة</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="canvas" id="viewport" aria-label="شجرة القصة">
+      <div id="stage" class="stage"></div>
+      <div class="zoom">
+        <button type="button" id="zoomIn" title="تكبير">+</button>
+        <button type="button" id="zoomOut" title="تصغير">−</button>
+        <button type="button" id="zoomFit" title="عرض الكل">⤢</button>
+      </div>
+      <div class="legend">
+        <span><i class="dot start"></i>البداية</span>
+        <span><i class="dot choice"></i>لحظة اختيار</span>
+        <span><i class="dot happy"></i>سعيدة</span>
+        <span><i class="dot lesson"></i>فيها درس</span>
+        <span><i class="dot sad"></i>حزينة</span>
+        <span><i class="dot neutral"></i>مفتوحة</span>
+        <span><i class="line-dash"></i>مسار يلتقي بمسار آخر</span>
+      </div>
+    </section>
+    <aside class="panel" id="panel"></aside>
+  </main>
+
+  <script src="js/registry.js"></script>
+  <!-- القصص: سطر لكل قصة -->
+  <script src="stories/lumi-last-gate-forest.js"></script>
+  <script src="stories/lumi-sky-ship.js"></script>
+  <script src="stories/lumi-flying-lanterns.js"></script>
+  <script src="stories/adam-still-time.js"></script>
+  <script src="stories/salma-seed.js"></script>
+  <!-- /القصص -->
+  <script src="js/app.js"></script>
+</body>
+</html>
